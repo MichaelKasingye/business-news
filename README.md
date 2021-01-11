@@ -1,13 +1,11 @@
-## Noonya Search Engine
-link: https://clone-2cf1c.web.app/
+## BizNews news
+link: 
 
 ### Description
-This is a prototype search app. It is limmited to 100 searches a day.
+BizNews is a business news media platform that displays news articles from various media outlets.
 
 ### Application build
 1. React
-2. context API
-3. Google Search API
-4. Firebase deployment
+2. Netflify deployment
 
 

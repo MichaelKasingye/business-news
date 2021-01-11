@@ -1,35 +1,66 @@
-import React from 'react';
-import Search from "../Components/Search";
-import '../style/Home.css';
-import {Link} from "react-router-dom";
-import AppsIcon from "@material-ui/icons/Apps";
-import { Avatar } from '@material-ui/core';
+import React, { Component } from "react";
+import { api } from "../Library/keys";
+import NavBar from "../Components/NavBar";
+import Content from "../Components/Content";
+import Heading from "../Components/Heading";
+import Footer from "../Components/Footer";
 
-function Home() {
+import "../style/Home.css";
+
+class News extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      articles: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch(`${api.base}&apiKey=${api.API_key}`)
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({
+          articles: result.articles,
+        });
+      })
+      .catch((err) => err);
+  }
+
+  render() {
     return (
-        <div className="home">
-            <div className="home_header">
-                <div className="home_headerLeft">
-                    <Link to = "/about">About</Link>
-                    <Link to = "/store">Store</Link>
-                </div>
-                <div className="home_headerRight">
-                <Link to = "/mail">Mail</Link>
-                <Link to = "/images">Images</Link>
-               <AppsIcon/>     
-                <Avatar/>
-                </div>
+      <div>
+        <NavBar />
+        <div className="display">
+          {this.state.articles.slice(7, 10).map((item) => (
+            <div className="display_image" key={item.url}>
+              <a href={item.url} rel="noopener noreferrer" target="_blank">
+                <img src={item.urlToImage} alt="" />
+                <div className="display_content">{item.title}</div>
+              </a>
             </div>
-            <div className="home_body">
-                <div className="body_image">
-                <h1>Noonya</h1>
-                </div>
-                <div className="home_inputContainer">
-                <Search/>
-                </div>
-            </div>
+          ))}
         </div>
-    )
+
+        <Heading />
+
+        <div className="content_display">
+          {this.state.articles.map((item, index) => (
+            <Content
+              key={item.title}
+              link={item.url}
+              image={item.urlToImage}
+              title={item.title}
+              content={item.content}
+              author={item.author}
+              more={item.url}
+            />
+          ))}
+        </div>
+
+        <Footer />
+      </div>
+    );
+  }
 }
 
-export default Home;
+export default News;
