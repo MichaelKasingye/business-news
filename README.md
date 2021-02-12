@@ -3,7 +3,7 @@
 BizNews is a business news media platform that displays news articles from various media outlets.
 
 #### NOTE
-Applications only runs on local host since it using the free version of NEWSAPI api.
+The application only runs on localhost since it is using the free version of the https://newsapi.org api.
 
 ### Application build
 1. React
